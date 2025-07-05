@@ -1,0 +1,189 @@
+.servicesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.serviceCard {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.serviceCard:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.cardContent {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.serviceIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.serviceTitle {
+  font-size: 1.3rem;
+  color: #2b6cb0;
+  margin-bottom: 0.8rem;
+}
+
+.serviceDescription {
+  color: #4a5568;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.expandedContent {
+  max-height: 0;
+  text-align: justify;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  padding: 0 2rem;
+  background: #f0f5ff;
+}
+
+.expandedContent.visible {
+  max-height: 500px;
+  padding: 0 2rem 2rem;
+}
+
+.expandedContent p {
+  margin: 1rem 0;
+  line-height: 1.6;
+}
+
+.detailsList {
+  margin: 1rem 0;
+  padding-left: 1.5rem;
+  color: #4a5568;
+}
+
+.detailsList li {
+  margin-bottom: 0.5rem;
+  position: relative;
+  list-style-type: none;
+}
+
+.detailsList li::before {
+  content: '•';
+  color: #2b6cb0;
+  position: absolute;
+  left: -1rem;
+  font-weight: bold;
+}
+
+.detailsButton {
+  margin-top: auto;
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: #2b6cb0;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem 1rem 0.5rem 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.detailsButton:hover {
+  color: #1e4e8a;
+}
+
+.arrowIcon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.detailsButton[aria-expanded="true"] .arrowIcon {
+  transform: rotate(180deg);
+}
+
+@media (max-width: 1024px) {
+  .servicesGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .servicesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .cardContent {
+    padding: 1.5rem;
+  }
+}
+
+/* Добавьте эти стили в ваш файл ServicesPreview.module.css */
+
+@media (max-width: 480px) {
+  .servicesGrid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* плавная прокрутка на iOS */
+    gap: 1rem;
+    padding: 0 1rem 1rem;
+    margin: 0 -1rem;
+    scrollbar-width: none; /* скрыть scrollbar в Firefox */
+  }
+
+  .servicesGrid::-webkit-scrollbar {
+    display: none; /* скрыть scrollbar в Chrome/Safari */
+  }
+
+  .serviceCard {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+    min-height: 0; /* убираем фиксированную высоту */
+    margin-bottom: 0;
+  }
+
+  .cardContent {
+    padding: 1.5rem;
+    height: auto;
+  }
+
+  .serviceIcon {
+    font-size: 2rem;
+  }
+
+  .serviceTitle {
+    font-size: 1.2rem;
+  }
+
+  .serviceDescription {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .expandedContent {
+    padding: 0 1.5rem;
+  }
+
+  .expandedContent.visible {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .expandedContent p {
+    font-size: 0.9rem;
+  }
+
+  .detailsList {
+    font-size: 0.9rem;
+  }
+
+  .detailsButton {
+    font-size: 0.9rem;
+  }
+}

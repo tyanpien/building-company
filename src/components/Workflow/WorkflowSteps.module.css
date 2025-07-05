@@ -1,0 +1,89 @@
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50px;
+  height: 100%;
+  width: 2px;
+  background: #2b6cb0;
+}
+
+.step {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-left: 100px;
+}
+
+.number {
+  position: absolute;
+  left: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2b6cb0;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stepTitle {
+  color: #2b6cb0;
+  margin-bottom: 0.5rem;
+}
+
+.stepDescription {
+  color: #4a5568;
+  line-height: 1.6;
+}
+@media (max-width: 480px) {
+  .timeline {
+    padding: 1.5rem 0;
+  }
+
+  .timeline::before {
+    left: 35px; /* Сдвигаем линию ближе к контенту */
+  }
+
+  .step {
+    padding-left: 80px; /* Уменьшаем отступ */
+    margin-bottom: 1.5rem;
+  }
+
+  .number {
+    left: 20px;
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .stepTitle {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .stepDescription {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+}

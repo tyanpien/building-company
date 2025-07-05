@@ -1,0 +1,28 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  color: #2b6cb0;
+  margin-bottom: 1rem;
+}
+.title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: #2b6cb0;
+}

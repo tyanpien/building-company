@@ -1,0 +1,132 @@
+.section {
+  background-color: #f7fafc;
+  padding: 4rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+  color: #2b6cb0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.item {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.item h3 {
+  color: #2b6cb0;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 3.5rem 0;
+  }
+
+  .title {
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .grid {
+    gap: 1.5rem;
+  }
+
+  .item {
+    padding: 1.75rem;
+  }
+
+  .item h3 {
+    font-size: 1.4rem;
+  }
+}
+
+/* Адаптация для планшетов (768px) */
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 0;
+  }
+
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .title {
+    font-size: 1.7rem;
+    margin-bottom: 2rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .item {
+    padding: 1.5rem;
+  }
+}
+
+/* Адаптация для мобильных (480px) */
+@media (max-width: 480px) {
+  .section {
+    padding: 2.5rem 0;
+  }
+
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  .title {
+    font-size: 1.6rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .item {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .item h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .item p {
+    font-size: 0.95rem;
+  line-height: 1.5;
+  }
+}
+
+/* Адаптация для очень маленьких экранов (320px) */
+@media (max-width: 320px) {
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .item {
+    padding: 1.25rem 1rem;
+  }
+}

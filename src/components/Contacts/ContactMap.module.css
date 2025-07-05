@@ -1,0 +1,55 @@
+.mapContainer {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mapTitle {
+  color: #2b6cb0;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.mapWrapper {
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.map {
+  border: none;
+  display: block;
+}
+
+.address {
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.address p {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 480px){
+  .mapTitle {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .mapWrapper {
+    margin-bottom: 0.8rem;
+  }
+
+  .map {
+    height: 250px;
+  }
+
+  .address {
+    font-size: 0.9rem;
+  }
+
+  .address p {
+    margin-bottom: 0.4rem;
+  }
+}

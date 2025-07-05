@@ -1,0 +1,176 @@
+.formContainer {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.formTitle {
+  color: #2b6cb0;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label {
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.input,
+.textarea {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #2b6cb0;
+}
+
+.textarea {
+  resize: vertical;
+}
+
+.submitButton {
+  background-color: #2b6cb0;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+  background-color: #1a4e8a;
+}
+.inputError {
+  border-color: #ff4444 !important;
+}
+
+.errorMessage {
+  color: #ff4444;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.charCount {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.messageInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Мобильные стили (max-width: 768px) */
+@media (max-width: 768px) {
+  .formContainer {
+    padding: 1rem;
+    margin: 0.5rem;
+    width: calc(100% - 1rem); /* Чтобы форма не прилипала к краям */
+  }
+
+  .formTitle {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .form {
+    gap: 1rem;
+  }
+
+  .input,
+  .textarea {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+  }
+
+  .submitButton {
+    padding: 0.65rem;
+    font-size: 0.9rem;
+    width: 100%; /* Кнопка на всю ширину */
+  }
+
+  .formGroup {
+    gap: 0.3rem;
+  }
+
+  .label {
+    font-size: 0.9rem;
+  }
+
+  .errorMessage,
+  .charCount {
+    font-size: 0.7rem;
+  }
+}
+
+/* Очень маленькие экраны (max-width: 480px) */
+@media (max-width: 480px) {
+  .formContainer {
+    padding: 0.75rem;
+  }
+
+  .formTitle {
+    font-size: 1.1rem;
+  }
+
+  .input,
+  .textarea {
+    padding: 0.5rem;
+  }
+  .formTitle {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .form {
+    gap: 1rem;
+  }
+
+  .formGroup {
+    gap: 0.3rem;
+  }
+
+  .label {
+    font-size: 0.9rem;
+  }
+
+  .input,
+  .textarea {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .submitButton {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .errorMessage,
+  .charCount {
+    font-size: 0.75rem;
+  }
+}
