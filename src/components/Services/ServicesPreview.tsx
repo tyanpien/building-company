@@ -105,9 +105,6 @@ export const ServicesPreview = () => {
               aria-expanded={expandedCards.includes(service.id)}
             >
               {expandedCards.includes(service.id) ? 'Свернуть' : 'Подробнее'}
-              <span className={styles.arrowIcon}>
-                {expandedCards.includes(service.id) ? '↑' : '↓'}
-              </span>
             </button>
           </div>
 
