@@ -111,7 +111,7 @@ export const Header = () => {
           {!isMobile && (
             <nav className={styles.nav}>
               <Link href="/" className={styles.link}>Главная</Link>
-              <Link href="/services" className={styles.link}>Услуги</Link>
+              <Link href="/services" className={styles.link}>Виды услуг</Link>
               <Link href="/workflow" className={styles.link}>Как мы работаем</Link>
               <button
                 onClick={scrollToForm}

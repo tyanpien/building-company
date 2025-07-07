@@ -1,10 +1,40 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styles from './ServicesPreview.module.css';
+import Lottie from 'lottie-react';
+import repairAnimation from '@/assets/remont.json';
+import domAnimation from '@/assets/dom.json';
+import disignAnimation from '@/assets/disign.json';
 
 export const ServicesPreview = () => {
   const [expandedCards, setExpandedCards] = useState<number[]>([]);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.visible);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    cardRefs.current.forEach((card) => {
+      if (card) observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const setCardRef = (ref: HTMLDivElement | null, index: number) => {
+    cardRefs.current[index] = ref;
+  };
 
   const services = [
     {
@@ -12,7 +42,7 @@ export const ServicesPreview = () => {
       title: "Ремонт квартир",
       shortDescription: "Полный цикл работ от черновой отделки до дизайнерского ремонта",
       fullDescription: "Мы выполняем все виды ремонтных работ: демонтаж, выравнивание стен и потолков, монтаж инженерных систем, чистовую отделку. Используем только качественные материалы и современные технологии.",
-      icon: "🛠️",
+      icon: <Lottie animationData={repairAnimation} loop={true} style={{ width: 60, height: 60 }} />,
       details: [
         "Косметический ремонт",
         "Капитальный ремонт",
@@ -25,7 +55,7 @@ export const ServicesPreview = () => {
       title: "Строительство домов",
       shortDescription: "Возведение частных домов под ключ любой сложности",
       fullDescription: "Строим дома из различных материалов: кирпич, газобетон, дерево. Полный цикл работ от проектирования до сдачи объекта. Гарантия на все виды работ 5 лет.",
-      icon: "🏠",
+      icon: <Lottie animationData={domAnimation} loop={true} style={{ width: 60, height: 60 }} />,
       details: [
         "Каркасные дома",
         "Дома из бруса",
@@ -38,7 +68,7 @@ export const ServicesPreview = () => {
       title: "Дизайн интерьеров",
       shortDescription: "Создание стильных и функциональных пространств",
       fullDescription: "Разрабатываем индивидуальные дизайн-проекты с 3D визуализацией. Учитываем все пожелания клиента и особенности помещения. Подбираем материалы, мебель и декор.",
-      icon: "🎨",
+      icon: <Lottie animationData={disignAnimation} loop={true} style={{ width: 60, height: 60 }} />,
       details: [
         "3D-визуализация",
         "Авторский надзор",
@@ -58,10 +88,11 @@ export const ServicesPreview = () => {
 
   return (
     <div className={styles.servicesGrid}>
-      {services.map(service => (
+      {services.map((service, index) => (
         <div
           key={service.id}
-          className={styles.serviceCard}
+          ref={(ref) => setCardRef(ref, index)}
+          className={`${styles.serviceCard} ${styles.fadeIn}`}
         >
           <div className={styles.cardContent}>
             <div className={styles.serviceIcon}>{service.icon}</div>

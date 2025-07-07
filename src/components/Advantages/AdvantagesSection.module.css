@@ -28,7 +28,19 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
+
+.item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.item:nth-child(1) { transition-delay: 0.1s; }
+.item:nth-child(2) { transition-delay: 0.2s; }
+.item:nth-child(3) { transition-delay: 0.3s; }
 
 .item h3 {
   color: #2b6cb0;
@@ -58,7 +70,6 @@
   }
 }
 
-/* Адаптация для планшетов (768px) */
 @media (max-width: 768px) {
   .section {
     padding: 3rem 0;
@@ -83,7 +94,6 @@
   }
 }
 
-/* Адаптация для мобильных (480px) */
 @media (max-width: 480px) {
   .section {
     padding: 2.5rem 0;
@@ -120,7 +130,6 @@
   }
 }
 
-/* Адаптация для очень маленьких экранов (320px) */
 @media (max-width: 320px) {
   .title {
     font-size: 1.5rem;

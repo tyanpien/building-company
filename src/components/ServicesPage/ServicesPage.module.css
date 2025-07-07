@@ -6,14 +6,14 @@
 
 .title {
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   color: #2968ab;
   margin-bottom: 1rem;
 }
 
 .subtitle {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.05rem;
   color: #666;
   margin-bottom: 3rem;
 }
@@ -79,7 +79,43 @@
   color: white
 }
 
-/* Адаптивность */
+.categoryLinks {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.categoryLink {
+  color: #2968ab;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.categoryLink:hover {
+  color: #4081be;
+}
+
+.activeCategory {
+  font-weight: 600;
+  color: #1a4267;
+}
+
+.activeCategory::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #2968ab;
+}
+
 @media (max-width: 768px) {
   .title {
     font-size: 2rem;
@@ -92,6 +128,11 @@
   .servicesGrid {
     grid-template-columns: 1fr;
   }
+
+  .categoryLinks {
+    gap: 1.5rem;
+    font-size: 1.1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -103,6 +144,10 @@
   .subtitle {
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
+  }
+
+  .categoryTitle {
+    font-size: 1.4rem;
   }
   .serviceCard {
     padding: 1rem;
@@ -127,5 +172,10 @@
   .orderButton {
     padding: 0.4rem 0.8rem;
     font-size: 0.8rem;
+  }
+
+  .categoryLinks {
+    gap: 1rem;
+    font-size: 1rem;
   }
 }
