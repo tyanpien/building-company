@@ -63,7 +63,7 @@ export const AboutSection = () => {
               className={`${styles.description} ${styles.fadeIn}`}
             >
               <p>
-                ООО "БИЛДИНГ" – многопрофильная строительная компания, создающая современные пространства для бизнеса и жизни с 2017 года.
+                ООО &quot;БИЛДИНГ&quot; – многопрофильная строительная компания, создающая современные пространства для бизнеса и жизни с 2017 года.
                 Специализируемся на комплексных решениях: от капитального строительства до финишной отделки и оснащения мебелью собственного производства.
               </p>
               <p>
@@ -144,6 +144,9 @@ const DesktopImageGallery = () => {
           className={styles.image}
           sizes="(max-width: 1024px) 50vw, 33vw"
           priority
+          onError={(e) => {
+            (e.target as HTMLImageElement).style.display = 'none';
+          }}
         />
       </div>
       <div className={styles.secondaryImages}>
