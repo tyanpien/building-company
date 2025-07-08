@@ -18,6 +18,7 @@ export const ContactMap = () => {
         <p>г. Омск, улица Волховстроя, 94</p>
         <p>Телефон: +7 (999) 123-45-67</p>
         <p>Email: building0msk@gmail.com</p>
+        <p>Часы работы: с 9:00 до 18:00</p>
       </div>
     </div>
   );
