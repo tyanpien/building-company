@@ -108,11 +108,9 @@ export const AboutSection = () => {
 
 const DesktopImageGallery = () => {
   const [selectedCertificate, setSelectedCertificate] = useState<number | null>(null);
-  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
 
   const openCertificate = (index: number) => {
     setSelectedCertificate(index);
-    setIsHeaderHidden(true);
     document.documentElement.style.overflow = 'auto';
 
     const header = document.querySelector('header');
@@ -123,7 +121,6 @@ const DesktopImageGallery = () => {
 
   const closeCertificate = () => {
     setSelectedCertificate(null);
-    setIsHeaderHidden(false);
     document.documentElement.style.overflow = 'auto';
 
     const header = document.querySelector('header');

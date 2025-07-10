@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './ContactForm.module.css';
 import emailjs from '@emailjs/browser';
 
