@@ -107,74 +107,85 @@ export const AboutSection = () => {
 };
 
 const DesktopImageGallery = () => {
-  const galleryRef = useRef<HTMLDivElement>(null);
-  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [selectedCertificate, setSelectedCertificate] = useState<number | null>(null);
+  const [isHeaderHidden, setIsHeaderHidden] = useState(false);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
+  const openCertificate = (index: number) => {
+    setSelectedCertificate(index);
+    setIsHeaderHidden(true);
+    document.documentElement.style.overflow = 'auto';
 
-    imageRefs.current.forEach((ref) => ref && observer.observe(ref));
+    const header = document.querySelector('header');
+    if (header) {
+      header.style.display = 'none';
+    }
+  };
 
-    return () => observer.disconnect();
-  }, []);
+  const closeCertificate = () => {
+    setSelectedCertificate(null);
+    setIsHeaderHidden(false);
+    document.documentElement.style.overflow = 'auto';
 
-  const setImageRef = (ref: HTMLDivElement | null, index: number) => {
-    imageRefs.current[index] = ref;
+    const header = document.querySelector('header');
+    if (header) {
+      header.style.display = 'block';
+    }
   };
 
   return (
-    <div ref={galleryRef} className={styles.imageGallery}>
-      <div
-        ref={(ref) => setImageRef(ref, 0)}
-        className={`${styles.mainImageWrapper} ${styles.fadeIn}`}
-      >
+    <div className={styles.imageGallery}>
+      <div className={styles.mainImageWrapper}>
         <Image
           src="/about/2.jpg"
-          alt="Наши работы"
-          fill
-          className={styles.image}
-          sizes="(max-width: 1024px) 50vw, 33vw"
+          alt="Наш офис"
+          width={1200}
+          height={600}
+          quality={90}
           priority
-          onError={(e) => {
-            (e.target as HTMLImageElement).style.display = 'none';
-          }}
+          className={styles.image}
         />
       </div>
-      <div className={styles.secondaryImages}>
-        <div
-          ref={(ref) => setImageRef(ref, 1)}
-          className={`${styles.secondaryImageWrapper} ${styles.fadeIn}`}
-        >
-          <Image
-            src="/about/4.png"
-            alt="Наши проекты"
-            fill
-            className={styles.image}
-            sizes="25vw"
-          />
-        </div>
-        <div
-          ref={(ref) => setImageRef(ref, 2)}
-          className={`${styles.secondaryImageWrapper} ${styles.fadeIn}`}
-        >
-          <Image
-            src="/about/3.png"
-            alt="Наши проекты"
-            fill
-            className={styles.image}
-            sizes="25vw"
-          />
-        </div>
+
+      <div className={styles.certificatesRow}>
+        {[4, 5, 6, 7].map((imgNum, index) => (
+          <div
+            key={imgNum}
+            className={styles.certificateWrapper}
+            onClick={() => openCertificate(index)}
+          >
+            <Image
+              src={`/about/${imgNum}.jpg`}
+              alt={`Благодарственное письмо`}
+              width={300}
+              height={180}
+              quality={90}
+              className={styles.certificateImage}
+            />
+          </div>
+        ))}
       </div>
+
+      {selectedCertificate !== null && (
+        <div className={styles.certificateModal} onClick={closeCertificate}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button
+              className={styles.closeButton}
+              onClick={closeCertificate}
+              aria-label="Закрыть"
+            >
+              &times;
+            </button>
+            <Image
+              src={`/about/${[4, 5, 6, 7][selectedCertificate]}.jpg`}
+              alt={`Благодарственное письмо`}
+              width={1200}
+              height={1600}
+              quality={100}
+              className={styles.fullCertificate}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -182,6 +193,10 @@ const DesktopImageGallery = () => {
 const MobileImageSlider = () => {
   const images = [
     { src: '/about/2.jpg', alt: 'Наши работы' },
+    { src: '/about/4.jpg', alt: 'Наши работы' },
+    { src: '/about/5.jpg', alt: 'Наши работы' },
+    { src: '/about/6.jpg', alt: 'Наши работы' },
+    { src: '/about/7.jpg', alt: 'Наши работы' },
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
   const slideRefs = useRef<(HTMLDivElement | null)[]>([]);

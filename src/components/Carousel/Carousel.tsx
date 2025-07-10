@@ -38,7 +38,6 @@ export const Carousel = ({ images }: { images: string[] }) => {
         ))}
       </div>
 
-      {/* Кнопки навигации */}
       <button
         className={`${styles.navButton} ${styles.prevButton}`}
         onClick={prevSlide}
@@ -59,7 +58,6 @@ export const Carousel = ({ images }: { images: string[] }) => {
         </svg>
       </button>
 
-      {/* Индикаторы слайдов */}
       <div className={styles.indicators}>
         {images.map((_, index) => (
           <button

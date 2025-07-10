@@ -8,6 +8,7 @@ export default function WorkflowPage() {
     <main className={styles.container}>
       <section className={styles.section}>
         <h1 className={styles.title}>Как мы работаем</h1>
+        <p className={styles.sectionSubtitle}>Чёткие этапы идеального ремонта</p>
         <WorkflowSteps />
       </section>
 

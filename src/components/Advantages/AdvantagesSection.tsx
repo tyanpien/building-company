@@ -1,4 +1,4 @@
-'use client'; // Добавляем директиву для использования хуков
+'use client';
 
 import { useEffect, useRef } from 'react';
 import styles from './AdvantagesSection.module.css';

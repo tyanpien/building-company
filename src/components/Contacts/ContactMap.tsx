@@ -5,7 +5,6 @@ export const ContactMap = () => {
     <div className={styles.mapContainer}>
       <h3 className={styles.mapTitle}>Мы находимся</h3>
       <div className={styles.mapWrapper}>
-        {/* Вставьте код Яндекс.Карт */}
         <iframe
           src="https://yandex.ru/map-widget/v1/?um=constructor%3A7a87aecd89a63d249b98925e04432b2acee5d8efb08c278f44689ab0fca6c4c7&amp;source=constructor"
           width="100%"

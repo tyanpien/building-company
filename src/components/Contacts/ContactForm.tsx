@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './ContactForm.module.css';
 import emailjs from '@emailjs/browser';
 
@@ -17,6 +17,32 @@ export const ContactForm = () => {
     message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const formatPhone = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+    let formattedValue = '';
+
+    if (numbers.length > 0) {
+      formattedValue = '+7 (';
+      if (numbers.length > 1) {
+        formattedValue += numbers.substring(1, 4);
+      }
+      if (numbers.length > 4) {
+        formattedValue += ') ' + numbers.substring(4, 7);
+      }
+      if (numbers.length > 7) {
+        formattedValue += '-' + numbers.substring(7, 9);
+      }
+      if (numbers.length > 9) {
+        formattedValue += '-' + numbers.substring(9, 11);
+      }
+    }
+
+    return formattedValue;
+  };
+
   const validateForm = () => {
     let isValid = true;
     const newErrors = {
@@ -25,32 +51,26 @@ export const ContactForm = () => {
       message: ''
     };
 
-    // Проверка имени (только буквы и пробелы)
-    const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s]+$/;
+    const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s-]{2,50}$/;
     if (!formData.name.trim()) {
-      newErrors.name = 'Имя обязательно для заполнения';
+      newErrors.name = 'Введите ваше имя';
       isValid = false;
     } else if (!nameRegex.test(formData.name)) {
-      newErrors.name = 'Имя должно содержать только буквы';
-      isValid = false;
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = 'Имя должно содержать минимум 2 символа';
+      newErrors.name = 'Имя должно содержать только буквы и дефис (2-50 символов)';
       isValid = false;
     }
 
-    // Проверка телефона
-    const phoneRegex = /^[+]?[\d\s-]+$/;
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Телефон обязателен для заполнения';
+    const phoneDigits = formData.phone.replace(/\D/g, '');
+    if (!phoneDigits) {
+      newErrors.phone = 'Введите номер телефона';
       isValid = false;
-    } else if (!phoneRegex.test(formData.phone)) {
-      newErrors.phone = 'Введите корректный номер телефона';
+    } else if (phoneDigits.length < 11) {
+      newErrors.phone = 'Номер должен содержать 11 цифр';
       isValid = false;
     }
 
-    // Проверка сообщения
-    if (formData.message.length > 100) {
-      newErrors.message = 'Сообщение не должно превышать 100 символов';
+    if (formData.message.length > 500) {
+      newErrors.message = 'Сообщение не должно превышать 500 символов';
       isValid = false;
     }
 
@@ -59,92 +79,110 @@ export const ContactForm = () => {
   };
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
+    const value = e.target.value;
+    setErrors(prev => ({ ...prev, name: '' }));
 
-      // Очищаем ошибку при изменении
-      if (errors.name) {
-          setErrors(prev => ({ ...prev, name: '' }));
-      }
-
-      // Разрешаем ввод только букв и пробелов
-      const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s]*$/;
-      if (nameRegex.test(value)) {
-          setFormData(prev => ({ ...prev, name: value }));
-      }
+    const nameRegex = /^[a-zA-Zа-яА-ЯёЁ\s-]*$/;
+    if (nameRegex.test(value) && value.length <= 50) {
+      setFormData(prev => ({ ...prev, name: value }));
+    }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setErrors(prev => ({ ...prev, phone: '' }));
 
-    // Для имени используем специальный обработчик
-    if (name === 'name') {
-      handleNameChange(e as React.ChangeEvent<HTMLInputElement>);
-      return;
-    }
-
-    // Очищаем ошибку при изменении поля
-    if (errors[name as keyof typeof errors]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
-    }
-
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const formattedPhone = formatPhone(value);
+    setFormData(prev => ({ ...prev, phone: formattedPhone }));
   };
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setErrors(prev => ({ ...prev, message: '' }));
 
-  if (!validateForm()) return;
+    if (value.length <= 500) {
+      setFormData(prev => ({ ...prev, message: value }));
+    }
+  };
 
-  try {
-    await emailjs.send(
-      "service_dlb0wlr",
-      "template_ei65yyg",
-      {
-        name: formData.name,
-        phone: formData.phone,
-        message: formData.message
-      },
-      "aGR1yzX5N27kUUhFS"
-    );
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    alert("Заявка отправлена!");
-    setFormData({ name: "", phone: "", message: "" });
-  } catch (error) {
-    alert("Ошибка при отправке.");
-    console.error(error);
-  }
-};
+    if (!validateForm() || isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    try {
+      await emailjs.send(
+        "service_dlb0wlr",
+        "template_ei65yyg",
+        {
+          name: formData.name.trim(),
+          phone: formData.phone,
+          message: formData.message.trim()
+        },
+        "aGR1yzX5N27kUUhFS"
+      );
+
+      setSubmitSuccess(true);
+      setFormData({ name: "", phone: "", message: "" });
+
+      setTimeout(() => setSubmitSuccess(false), 5000);
+    } catch (error) {
+      console.error("Ошибка отправки:", error);
+      alert("Произошла ошибка при отправке. Пожалуйста, попробуйте позже.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className={styles.formContainer}>
       <h3 className={styles.formTitle}>Оставить заявку</h3>
-      <form onSubmit={handleSubmit} className={styles.form}>
+
+      {submitSuccess && (
+        <div className={styles.successMessage}>
+          Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className={styles.form} noValidate>
         <div className={styles.formGroup}>
-          <label htmlFor="name" className={styles.label}>Ваше имя</label>
+          <label htmlFor="name" className={styles.label}>
+            Ваше имя <span className={styles.required}>*</span>
+          </label>
           <input
             type="text"
             id="name"
             name="name"
             value={formData.name}
-            onChange={handleChange}
+            onChange={handleNameChange}
             className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
-            placeholder="Введите Ваше имя"
+            placeholder="Иван Иванов"
+            required
           />
-          {errors.name && <span className={styles.errorMessage}>{errors.name}</span>}
+          {errors.name && (
+            <span className={styles.errorMessage}>{errors.name}</span>
+          )}
         </div>
 
         <div className={styles.formGroup}>
-          <label htmlFor="phone" className={styles.label}>Телефон</label>
+          <label htmlFor="phone" className={styles.label}>
+            Телефон <span className={styles.required}>*</span>
+          </label>
           <input
             type="tel"
             id="phone"
             name="phone"
             value={formData.phone}
-            onChange={handleChange}
+            onChange={handlePhoneChange}
             className={`${styles.input} ${errors.phone ? styles.inputError : ''}`}
-            placeholder="+7 (XXX) XXX-XX-XX"
+            placeholder="+7 (ХХХ) ХХХ-ХХ-ХХ"
+            required
           />
-          {errors.phone && <span className={styles.errorMessage}>{errors.phone}</span>}
+          {errors.phone && (
+            <span className={styles.errorMessage}>{errors.phone}</span>
+          )}
         </div>
 
         <div className={styles.formGroup}>
@@ -153,21 +191,29 @@ const handleSubmit = async (e: React.FormEvent) => {
             id="message"
             name="message"
             value={formData.message}
-            onChange={handleChange}
+            onChange={handleMessageChange}
             className={`${styles.textarea} ${errors.message ? styles.inputError : ''}`}
             rows={4}
-            placeholder="Максимум 100 символов"
+            placeholder="Опишите вашу задачу (до 500 символов)"
           />
           <div className={styles.messageInfo}>
             {errors.message ? (
               <span className={styles.errorMessage}>{errors.message}</span>
             ) : (
-              <span className={styles.charCount}>{formData.message.length}/100</span>
+              <span className={styles.charCount}>
+                {formData.message.length}/500
+              </span>
             )}
           </div>
         </div>
 
-        <button type="submit" className={styles.submitButton}>Отправить</button>
+        <button
+          type="submit"
+          className={styles.submitButton}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
+        </button>
       </form>
     </div>
   );

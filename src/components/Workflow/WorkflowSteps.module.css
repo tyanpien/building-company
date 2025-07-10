@@ -21,6 +21,17 @@
   padding-left: 100px;
 }
 
+.stepList {
+  padding-left: 1.5rem;
+  margin: 0;
+}
+
+.stepListItem {
+  margin-bottom: 0.5rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
 .number {
   position: absolute;
   left: 30px;
@@ -52,17 +63,18 @@
   color: #4a5568;
   line-height: 1.6;
 }
+
 @media (max-width: 480px) {
   .timeline {
     padding: 1.5rem 0;
   }
 
   .timeline::before {
-    left: 35px; /* Сдвигаем линию ближе к контенту */
+    left: 35px;
   }
 
   .step {
-    padding-left: 80px; /* Уменьшаем отступ */
+    padding-left: 80px;
     margin-bottom: 1.5rem;
   }
 
@@ -85,5 +97,17 @@
   .stepDescription {
     font-size: 0.85rem;
     line-height: 1.5;
+  }
+
+  .stepList {
+    padding-left: 1.5rem;
+    margin: 0;
+    font-size: 0.85rem;
+  }
+
+  .stepListItem {
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+    line-height: 1.6;
   }
 }

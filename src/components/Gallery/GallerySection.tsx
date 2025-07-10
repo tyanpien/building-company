@@ -64,7 +64,7 @@ export const GallerySection = () => {
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  width={600}  // базовые размеры
+                  width={600}
                   height={400}
                   className={styles.image}
                   style={{
